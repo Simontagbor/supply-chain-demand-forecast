@@ -1,0 +1,46 @@
+project:
+  title: "Simon's Notes"
+  type: website
+  output-dir: .
+
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-depth: 2
+    toc-title: On This Page
+    css: style.css
+
+website:
+  favicon: assets/favicon.ico
+  navbar:
+    background: primary
+    tools:
+      - icon: twitter
+        href: https://twitter.com
+      - icon: github
+        href: https://github.com/Simontagbor
+      - icon: kaggle
+        href: https://www.kaggle.com/simontagbor
+        menu:
+          - text: Source Code
+            url:  https://github.com/Simontagbor/BritishAirways-predictive-ML
+          - text: Report a Bug
+            url:  https://bugs.com
+    left:
+      - text: "Projects"
+        url: /index
+        file: index.ipynb
+      - text: "About Me"
+        url: /about
+        file: index.ipynb
+      - text: "Contact"
+        url: /contact
+        file: index.ipynb
+    
+    footer:
+      left: "Copyright 2024, Simon Tagbor Gabriel" 
+      right: 
+        - icon: github
+          href: https://github.com/Simontagbor
+        - icon: twitter 
