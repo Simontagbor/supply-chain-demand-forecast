@@ -9,7 +9,7 @@ format:
     toc-location: right
     toc-depth: 2
     toc-title: On This Page
-    css: style.css
+    css: assets/style.css
 
 website:
   favicon: assets/favicon.ico
@@ -24,7 +24,7 @@ website:
         href: https://www.kaggle.com/simontagbor
         menu:
           - text: Source Code
-            url:  https://github.com/Simontagbor/BritishAirways-predictive-ML
+            url:  https://github.com/Simontagbor/supply-chain-demand-forecast
           - text: Report a Bug
             url:  https://bugs.com
     left:
