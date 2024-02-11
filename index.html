@@ -181,22 +181,18 @@ Predicting the Future of Product Sales and Crafting the Optimal Inventory Strate
 <div class="column-page">
 <div>
 <p>
-Author: <a href="https://www./" style="color: blue; text-decoration:none;">Simon Tagbor</a> 📅 02-11-2024
+Author: <a href="https://www.linkedin.com/in/tagbor-simon-gabriel/" style="color: blue; text-decoration:none;">Simon Tagbor</a> 📅 02-11-2024
 </p>
 </div>
 </div>
 <div class="column-page">
-<h1 style="padding-top: 20px;
-padding-left: 20px;
-    width: 90%;">
+<h1>
 Introduction
 </h1>
 </div>
 <div class="column-page">
-<div style="
-    padding: 20px;
-    width: 85%;
-    line-height: 1.6">
+<section class="intro-section">
+<div class="intro">
 <p>
 One of the core focus of downstream supply chain operations involves a key responsibility – the ability to navigate the ever-changing landscape of customer demand. Supply chain professionals have adopted statiscal techqniques that ebable them to infer the demand of products based on historical data. This process is relatively straightforward when dealing with smaller product categories and stable demand patterns. However, challenges arise in larger product categories with constantly shifting consumer demands, posing scalability issues for traditional forecasting methods.
 </p>
@@ -223,7 +219,6 @@ Join me on this exploration as we seek answers, and feel free to share your thou
 <p>
 You can find the source code for this project at my <a href="https://github.com/Simontagbor/supply-chain-demand-forecast">github page.</a> You can also find the Jupyter notebook and the dataset on my <a href="https://www.kaggle.com/simontagbor/british-airways-predictive-ml">kaggle page</a>.
 </p>
-</div>
 </div>
 <div id="myModal" class="modal">
 <div class="modal-content">
@@ -252,6 +247,12 @@ Based on the Economic Order Quantity Model(EOQ) the optimal inventory policy is
 </p>
 </div>
 </div>
+<!-- The button that opens the modal -->
+<button id="myBtn">
+Show Executive Summary
+</button>
+</section>
+</div>
 <h2 class="anchored">
 Project Outline
 </h2>
@@ -268,7 +269,11 @@ For this project, I completed the following tasks:
 <h2 class="anchored">
 Problem Statement
 </h2>
-<p><em>Large product categories and constantly shifting consumer demand patterns introduce a scaling challenge for traditional demand forecasting techniques. There is a need for an approach that reduces the level of guesswork and reduces the avoidable costly outcomes of poor inventory optimizations.</em></p>
+<div class="card">
+<p>
+Large product categories and constantly shifting consumer demand patterns introduce a scaling challenge for traditional demand forecasting techniques. There is a need for an approach that reduces the level of guesswork and reduces the avoidable costly outcomes of poor inventory optimizations.
+</p>
+</div>
 <h2 class="anchored">
 Project Dependencies
 </h2>
@@ -1905,7 +1910,7 @@ Up Next:
 </h1>
 </div>
 <div class="column-page">
-<div style="margin: 0; font-family: Arial, sans-serif; display: flex; justify-content: space-between; padding: 20px;">
+<div class="card-container1">
 <a href="https://simontagbor.github.io/BritishAirways-data-science/" style="text-decoration: none; color: black;">
 <div style="width: 300px; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s;">
 <img src="assets/blogpngBA.png" alt="Blog Post Image" style="width: 100%; height: auto; border-radius: 15px 15px 0 0;">
@@ -2182,7 +2187,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="assets/modal.js"> </script>
 </div> <!-- /content -->
 
 

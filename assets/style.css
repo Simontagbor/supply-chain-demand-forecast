@@ -38,19 +38,65 @@ li {
 h1 {
   border-left: 5px solid rgb(43, 113, 255);
   padding-left: 10px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding-bottom: 10px;
+  line-height: 1.6;
 }
 body {color: #21313c;
   background-color: #fff;
   font-family: 'Montserrat' sans-serif;}
 
-h2, h3, h4, h5, h6 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: normal;
-  color: #636363;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding-bottom: 10px;
+  h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    line-height: 1.6;
+  }
+  
+  h2 {
+    color: #1a1a1a; /* darkest */
+  }
+  
+  h3 {
+    color: #2d2d2d; /* slightly lighter */
+  }
+  
+  h4 {
+    color: #404040; /* even lighter */
+  }
+  
+  h5 {
+    color: #545454; /* even lighter */
+  }
+  
+  h6 {
+    color: #696969; /* lightest */
+  }
+
+.intro-section {
+  padding: 20px;
+  margin-bottom: 50px; /* Space after the section */
+  /* center items */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+.intro {
+  padding: 20px;
+  width: 85%;
   line-height: 1.6;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+  .intro {
+    width: 100%;
+  }
 }
 
 .modal {
@@ -93,7 +139,7 @@ h2, h3, h4, h5, h6 {
 #myBtn {
   font-size: 20px;
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: rgb(43, 113, 255);
   color: white;
   border: none;
   border-radius: 5px;
@@ -101,5 +147,44 @@ h2, h3, h4, h5, h6 {
 }
 
 #myBtn:hover {
-  background-color: #45a049;
+  background-color: rgb(4, 80, 231);
 }
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(89, 125, 255, 0.227);
+  padding: 10px;
+  background-color: white;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.card h2 {
+  color: #1a1a1a;
+}
+
+.card p {
+  color: #404040;
+}
+
+/* Blog cards */
+.card-container1 {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  width: 85%;
+  gap: 30px; 
+  overflow: auto;
+}
+
+@media (max-width: 600px) {
+  .card-container1 {
+    flex-direction: column;
+  }
+}
+
+/* Blog cards */
