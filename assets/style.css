@@ -170,13 +170,14 @@ body {color: #21313c;
 #myBtn:hover {
   background-color: rgb(4, 80, 231);
 }
-
+/* for decorative text */
 .deco-text {
   text-align: center;
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bold;
   font-family: 'Lucida Calligraphy' !important;
   padding: 50px 0 !important;
+  left:50px;
 }
 
 .card {
