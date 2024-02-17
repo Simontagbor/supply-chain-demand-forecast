@@ -171,9 +171,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="column-page">
-<div style="background-image: url('hero/3.jpg'); background-size:cover; background-position: center; height:100%; padding: 50px; color: white; font-family: 'Georgia'; width:100%;
-text-align: center;">
-<h1 style="font-weight: bold;  border-left: none;">
+<div class="herosection">
+<h1>
 Predicting the Future of Product Sales and Crafting the Optimal Inventory Strategy
 </h1>
 </div>
@@ -181,7 +180,7 @@ Predicting the Future of Product Sales and Crafting the Optimal Inventory Strate
 <div class="column-page">
 <div>
 <p>
-Author: <a href="https://www.linkedin.com/in/tagbor-simon-gabriel/" style="color: blue; text-decoration:none;">Simon Tagbor</a> 📅 02-11-2024
+Author: <a href="https://www.linkedin.com/in/tagbor-simon-gabriel/" style="color: blue; text-decoration:none;">Simon Tagbor</a> 📅 6th February, 2024
 </p>
 </div>
 </div>
@@ -194,20 +193,17 @@ Introduction
 <section class="intro-section">
 <div class="intro">
 <p>
-One of the core focus of downstream supply chain operations involves a key responsibility – the ability to navigate the ever-changing landscape of customer demand. Supply chain professionals have adopted statiscal techqniques that ebable them to infer the demand of products based on historical data. This process is relatively straightforward when dealing with smaller product categories and stable demand patterns. However, challenges arise in larger product categories with constantly shifting consumer demands, posing scalability issues for traditional forecasting methods.
+Navigating the ever-shifting landscape of customer demand is a core challenge that supply chain professionals face. Supply chain professionals often combine their expert intuition with some basic statistical techniques to infer the demand for products based on historical data. This process is relatively straightforward when dealing with smaller product categories and stable demand patterns. However, As businesses grow and encounter larger product categories with constantly shifting consumer demands, this traditional demand forecasting approach may not scale.
 </p>
 <p>
-The traditional approach involves observing the distribution and variability of historical data from ERP systems, combined with expert intuition. Yet, as businesses grow, reducing guesswork in demand forecasting becomes important. The decisions made in inventory optimization can significantly impact costs.
-</p>
-<p>
-In this notebook, I will guide you through building a demand forecasting model to predict product demand based on historical data. Moreover, I’ll demonstrate how this model can be leveraged for inventory optimization, covering concepts like reorder points, safety stock, and economic order quantity (EOQ).
+In this notebook, we will explore a more modern and scalable alternative – a data-driven, programmatic approach to demand forecasting. We will build a demand forecasting model with Python. We will also use this model for inventory optimization, covering concepts like reorder points, safety stock, and economic order quantity (EOQ).
 </p>
 <p>
 Throughout this project, we will address two key business questions:
 </p>
 <ol>
 <li>
-<em>What is the demand forecast for the top selling product in the next 24 months?</em>
+<em>What is the demand forecast for the top-selling product in the next 24 months?</em>
 </li>
 <li>
 <em>What is the optimal inventory level for the product?</em>
@@ -223,9 +219,9 @@ You can find the source code for this project at my <a href="https://github.com/
 <div id="myModal" class="modal">
 <div class="modal-content">
 <span class="close">×</span>
-<h2 class="anchored">
+<h1>
 Executive Summary
-</h2>
+</h1>
 <p>
 After building and testing the demand forecasting model, we discovered trends, seasonalities and holiday effects on the top-selling product based on the dataset provided we also found the optimal inventory policy for the top-selling product:
 </p>
@@ -234,16 +230,28 @@ After building and testing the demand forecasting model, we discovered trends, s
 Given the zero variance observed in the product price, The Demand for the <code>product Card ID 365</code> is expected to remain fairly stable within the next two years with cyclical dips in sales within the third quarter of each year(2015 and 2016). it might be worth looking into these top predictors of demand outcomes to control the dips and ultimately improve sales outcomes
 </li>
 </ul>
+<p>
+The optimal inventory policy for the top-selling product is as follows:
+</p>
+<div class="card">
 <ul>
 <li>
-Based on the Economic Order Quantity Model(EOQ) the optimal inventory policy is
+<strong>Reorder Point</strong>: 3753 units
 </li>
-<p>
-</p>
+<li>
+<strong>Economic Order Quantity (EOQ)</strong>: 35 units
+</li>
+<li>
+<strong>Safety Stock</strong>: 2284 units
+</li>
 </ul>
+</div>
+<p></p>
 <p>
+When the stock level of the top-selling product hits 3753 units, The Company needs to place an order of 35 units with its suppliers.
 </p>
 <p>
+Inventory management decisions based on these markers will help the company ensure that there is the right amount of inventory of the top-selling product on hand to meet customer demand while minimizing inventory costs.
 </p>
 </div>
 </div>
@@ -253,9 +261,9 @@ Show Executive Summary
 </button>
 </section>
 </div>
-<h2 class="anchored">
+<h1>
 Project Outline
-</h2>
+</h1>
 <p>
 For this project, I completed the following tasks:
 </p>
@@ -266,18 +274,39 @@ For this project, I completed the following tasks:
 <li><input type="checkbox" checked="">Evaluated the model performance.</li>
 <li><input type="checkbox" checked="">Interpret the model results and answer the business questions.</li>
 </ul>
-<h2 class="anchored">
+<h1>
 Problem Statement
-</h2>
+</h1>
 <div class="card">
 <p>
 Large product categories and constantly shifting consumer demand patterns introduce a scaling challenge for traditional demand forecasting techniques. There is a need for an approach that reduces the level of guesswork and reduces the avoidable costly outcomes of poor inventory optimizations.
 </p>
 </div>
-<h2 class="anchored">
+<h1>
+Prerequisites
+</h1>
+<p>
+To follow along you need to have a basic understanding of the following:
+</p>
+<ul>
+<li>
+Python Programming. You can take a quick introduction to Python by following this <a href="https://www.pythonforbeginners.com/python-tutorial">tutorial</a>
+</li>
+<li>
+Time Series Analysis. You can take a quick <a href="https://zerotomastery.io/blog/time-series-forecasting-with-facebook-prophet/">introduction to Time Series Analysis</a>
+</li>
+<li>
+Understanding of <a href="https://www.shipbob.com/inventory-management/inventory-optimization/">Inventory Optimization techniques.</a> will be a plus
+</li>
+</ul>
+<p>
+If you’re already familiar with these concepts, you’re good to go!
+</p>
+<p><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGpxN21laHVsY3Ixc2tsYmFvcGpmMjR1aHo4MXBsejY4azlncHpndCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UxTBfyPE5JwRQbPCgU/giphy.gif" alt="gif" style="width: 100%; height: auto;"></p>
+<h1>
 Project Dependencies
-</h2>
-<div class="cell" data-execution_count="25">
+</h1>
+<div class="cell" data-execution_count="1">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import project libraries</span></span>
@@ -316,10 +345,10 @@ Project Dependencies
 Exploratory Data Analysis
 </h1>
 <p>
-The working <a href="#">dataset</a> contains entries of customer demand information The data contains 53 features (columns)
+The working <a href="https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis">dataset</a> contains entries of customer demand information The data contains 53 features (columns)
 </p>
 <p>
-To understand the data, I performed exploratory data analysis. I used the following techniques to understand the data:
+To understand the data, let’s perform some exploratory data analysis. We will use the following techniques:
 </p>
 <ul class="task-list">
 <li>
@@ -332,10 +361,10 @@ To understand the data, I performed exploratory data analysis. I used the follow
 <h2 class="anchored">
 Visual Inspection of Data
 </h2>
-<div class="cell" data-execution_count="27">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/DataCoSupplyChainDataset.csv"</span>, encoding<span class="op">=</span><span class="st">"ISO-8859-1"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="27">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -425,10 +454,10 @@ Visual Inspection of Data
 <p>
 To explore the spread of the data, we will use the describe() method to get the summary statistics of the data.
 </p>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve the number of columns and rows</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -693,7 +722,7 @@ Further inspection of the data will help us understand the data better.
 Data Preprocessing
 </h2>
 <p>
-To Forecast the demand based on the available data, we will focus on historical sales data, and product attributes like; stock level, and product category, we will also analyze the impact of other variables that contribute to demand patterns including geographic factors, customer segments and lead time.
+we will focus on historical sales data, and product attributes like; stock level, and product category, we will also analyze the impact of other variables that contribute to demand patterns including geographic factors, customer segments and lead time.
 </p>
 <h4 class="anchored">
 Preprocessing Tasks
@@ -710,7 +739,7 @@ Based on the above, we will drop the majority of the columns that are not releva
 <h3 class="anchored">
 Drop Irrelevant Columns
 </h3>
-<div class="cell" data-execution_count="28">
+<div class="cell" data-execution_count="4">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop irrelevant columns</span></span>
@@ -757,38 +786,34 @@ Drop Irrelevant Columns
 <h3 class="anchored">
 Drop Rows with Missing Values
 </h3>
-<div class="cell" data-execution_count="29">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop customer Zip code.</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">'Customer Zipcode'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h4 class="anchored">
 A Quick Spot Check for Missing Values
 </h4>
-<div class="cell" data-execution_count="30">
+<div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Check for Missing values</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
-<pre><code>Type                             0
-Days for shipping (real)         0
-Days for shipment (scheduled)    0
-Sales per customer               0
-Delivery Status                  0
-Late_delivery_risk               0
-Customer City                    0
-Customer Country                 0
-Customer Segment                 0
-Market                           0
-Sales                            0
-Product Card Id                  0
-Product Category Id              0
-Product Name                     0
-Product Price                    0
-Product Status                   0
-shipping date (DateOrders)       0
-Shipping Mode                    0
-dtype: int64</code></pre>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_null_values(df):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    null_values <span class="op">=</span> df.isnull().<span class="bu">sum</span>()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> null_values.<span class="bu">sum</span>() <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"No null values found ✅"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"⚠️ Null values found in the following columns:"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> column, null_count <span class="kw">in</span> null_values.iteritems():</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> null_count <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>column<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>null_count<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the function</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>check_null_values(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>No null values found ✅</code></pre>
 </div>
 </div>
+<p>
+In the code above, <code>df.isnull().sum()</code> returns a Series where the index is the column names and the values are the count of null values in each column. If the sum of these counts is 0, it means there are no null values in the DataFrame, so it prints “No null values found”. Otherwise, it iterates over the Series and prints the column names and counts of null values.
+</p>
 <h3 class="anchored">
 Create New Features
 </h3>
@@ -802,9 +827,9 @@ The dataset contains a <code>shipping date</code> column which is a <code>DateTi
 <li><input type="checkbox" checked=""><code>Day of Week</code> - to capture the day of the week per sales.</li>
 </ul>
 <p>
-I will all also create a new feature <code>Lead Time</code> which is the difference between the <code>Days for shipment (scheduled)</code> and the <code>Days for shipping (real)</code>.
+we need to also create a new <code>Lead Time</code> column which is the difference between the <code>Days for shipment (scheduled)</code> and the <code>Days for shipping (real)</code>. This will help us understand the impact of lead time on demand.
 </p>
-<div class="cell" data-execution_count="31">
+<div class="cell" data-execution_count="10">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create month, Year, Day, and Weekday columns from Shipping Date</span></span>
@@ -817,7 +842,7 @@ I will all also create a new feature <code>Lead Time</code> which is the differe
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        df[<span class="ss">f'</span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Weekday'</span>] <span class="op">=</span> df[date_column].dt.weekday</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># verify and notify that the columns have been created</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="ss">f'</span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Year'</span> <span class="kw">in</span> df.columns <span class="kw">and</span> <span class="ss">f'</span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Month'</span> <span class="kw">in</span> df.columns <span class="kw">and</span> <span class="ss">f'</span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Day'</span> <span class="kw">in</span> df.columns <span class="kw">and</span> <span class="ss">f'</span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Weekday'</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f" Success! Columns Created: </span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Year, </span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Month, </span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Day, and </span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Weekday"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"✅ Success! Columns Created: </span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Year, </span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Month, </span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Day, and </span><span class="sc">{</span>prefix<span class="sc">}</span><span class="ss"> Weekday"</span>)</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> df</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Error creating columns. Please check that the date column name is correct."</span>)</span>
@@ -831,13 +856,13 @@ I will all also create a new feature <code>Lead Time</code> which is the differe
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> extract_date_parts(df, <span class="st">'shipping date (DateOrders)'</span>, <span class="st">'Shipping'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code> Success! Columns Created: Shipping Year, Shipping Month, Shipping Day, and Shipping Weekday</code></pre>
+<pre><code>✅ Success! Columns Created: Shipping Year, Shipping Month, Shipping Day, and Shipping Weekday</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="32">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># display the shape of the data frame</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>(180519, 23)</code></pre>
 </div>
 </div>
@@ -851,15 +876,15 @@ Data Encoding
 The nature of categorical data makes it unsuitable for future analysis. For instance, machine learning models can’t work with categorical values for customer origins like <code>UK</code>, <code>USA</code>, <code>France</code>, etc. We will convert these categorical values to numerical values using the <code>LabelEncoder</code> from the <code>sklearn</code> library.
 </p>
 <p>
-I will also perform a <a href="#"> one-hot encoding</a> technique on categorical features for future machine learning modeling tasks.
+I will also perform a <a href="https://www.geeksforgeeks.org/ml-one-hot-encoding-of-datasets-in-python/"> one-hot encoding</a> technique on categorical features for future machine learning modeling tasks.
 </p>
 <p>
 I wrote a <code>prepare_data()</code> function that returns two preprocessed dataframes: one that is encoded using a label encoder function and the other encoded using one hot encoding technique.
 </p>
 <p>
-You can learn about encoding techniques for categorical variables <a href="#">here</a>
+You can learn about encoding techniques for categorical variables <a href="https://www.analyticsvidhya.com/blog/2020/08/types-of-categorical-data-encoding/">here</a>
 </p>
-<div class="cell" data-execution_count="33">
+<div class="cell" data-execution_count="12">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select top selling product</span></span>
@@ -871,103 +896,101 @@ You can learn about encoding techniques for categorical variables <a href="#">he
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prepare_data(df, product_card_id, categorical_cols, columns_to_drop):</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Prepare a DataFrame for bivariate analysis and machine learning by applying label encoding and one-hot encoding to categorical columns and dropping specified columns.</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">    df (pandas.DataFrame): The original DataFrame.</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">    product_card_id (int): The product card ID to filter the DataFrame on.</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">    categorical_cols (list of str): The names of the categorical columns to apply encoding to.</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">    columns_to_drop (list of str): The names of the columns to drop from the DataFrame.</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">    pandas.DataFrame: The label encoded DataFrame for bivariate analysis.</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">    pandas.DataFrame: The one-hot encoded DataFrame for machine learning.</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        df_copy <span class="op">=</span> df[df[<span class="st">'Product Card Id'</span>] <span class="op">==</span> product_card_id].copy()  <span class="co"># create a copy</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># label encoding</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        label_encoder <span class="op">=</span> LabelEncoder()</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        df_label_encoded <span class="op">=</span> df_copy.copy()</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply label encoding to categorical variables in place</span></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> col <span class="kw">in</span> categorical_cols:</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>            df_label_encoded[col] <span class="op">=</span> label_encoder.fit_transform(df_label_encoded[col])</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Drop specified columns</span></span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        df_label_encoded <span class="op">=</span> df_label_encoded.drop(columns<span class="op">=</span>columns_to_drop)</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># one-hot encoding</span></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>        df_one_hot_encoded <span class="op">=</span> pd.get_dummies(df_copy, columns<span class="op">=</span>categorical_cols)</span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Drop specified columns</span></span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        df_one_hot_encoded <span class="op">=</span> df_one_hot_encoded.drop(columns<span class="op">=</span>columns_to_drop)</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"✅Data Encoding successful."</span>)</span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span>  df_one_hot_encoded, df_label_encoded</span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error preparing data: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span>, <span class="va">None</span></span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the function to prepare the data for bivariate analysis</span></span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> [<span class="st">'Type'</span>, <span class="st">'Customer Segment'</span>, </span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Delivery Status'</span>, </span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Customer City'</span>, </span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Market'</span>,</span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Shipping Mode'</span>]</span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>columns_to_drop <span class="op">=</span> [<span class="st">'Product Name'</span>,</span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Days for shipment (scheduled)'</span>, </span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Sales per customer'</span>, </span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Days for shipping (real)'</span>,</span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Customer Country'</span>, </span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'shipping date (DateOrders)'</span>, </span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Product Card Id'</span>, </span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Product Category Id'</span>, </span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Product Status'</span>, </span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Product Price'</span>]</span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a><span class="co"># drop columns and encode data for correlation martrix and Machine learning</span></span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>onehot_encode_df, label_encode_df <span class="op">=</span> prepare_data(df, top_product, categorical_cols, columns_to_drop)</span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a><span class="co"># rename Type column to Payment Type</span></span>
-<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>label_encode_df <span class="op">=</span> label_encode_df.rename(columns<span class="op">=</span>{<span class="st">'Type'</span>: <span class="st">'Payment Type'</span>})</span>
-<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>onehot_encode_df <span class="op">=</span> onehot_encode_df.rename(columns<span class="op">=</span>{<span class="st">'Type'</span>: <span class="st">'Payment Type'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Prepare a DataFrame for bivariate analysis and machine learnin</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">    g by applying label encoding and one-hot encoding to categorical </span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">    columns and dropping specified columns.</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">    df (pandas.DataFrame): The original DataFrame.</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">    product_card_id (int): The product card ID to filter the DataFrame on.</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">    categorical_cols (list of str): The names of the categorical columns to apply encoding to.</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">    columns_to_drop (list of str): The names of the columns to drop from the DataFrame.</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">    pandas.DataFrame: The label encoded DataFrame for bivariate analysis.</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">    pandas.DataFrame: The one-hot encoded DataFrame for machine learning.</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>        df_copy <span class="op">=</span> df[df[<span class="st">'Product Card Id'</span>] <span class="op">==</span> product_card_id].copy()  <span class="co"># create a copy</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># label encoding</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        label_encoder <span class="op">=</span> LabelEncoder()</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        df_label_encoded <span class="op">=</span> df_copy.copy()</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply label encoding to categorical variables in place</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> col <span class="kw">in</span> categorical_cols:</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>            df_label_encoded[col] <span class="op">=</span> label_encoder.fit_transform(df_label_encoded[col])</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Drop specified columns</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>        df_label_encoded <span class="op">=</span> df_label_encoded.drop(columns<span class="op">=</span>columns_to_drop)</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># one-hot encoding</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>        df_one_hot_encoded <span class="op">=</span> pd.get_dummies(df_copy, columns<span class="op">=</span>categorical_cols)</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Drop specified columns</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>        df_one_hot_encoded <span class="op">=</span> df_one_hot_encoded.drop(columns<span class="op">=</span>columns_to_drop)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Data Encoding successful. ✅"</span>)</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span>  df_one_hot_encoded, df_label_encoded</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error preparing data: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span>, <span class="va">None</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the function to prepare the data for bivariate analysis</span></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> [<span class="st">'Type'</span>, <span class="st">'Customer Segment'</span>, </span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Delivery Status'</span>, </span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Customer City'</span>, </span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Market'</span>,</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Shipping Mode'</span>]</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>columns_to_drop <span class="op">=</span> [<span class="st">'Product Name'</span>,</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Days for shipment (scheduled)'</span>, </span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Sales per customer'</span>, </span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Days for shipping (real)'</span>,</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Customer Country'</span>, </span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'shipping date (DateOrders)'</span>, </span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Product Card Id'</span>, </span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Product Category Id'</span>, </span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Product Status'</span>, </span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Product Price'</span>]</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a><span class="co"># drop columns and encode data for correlation martrix and Machine learning</span></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>onehot_encode_df, label_encode_df <span class="op">=</span> prepare_data(df, top_product, categorical_cols, columns_to_drop)</span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a><span class="co"># rename Type column to Payment Type</span></span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>label_encode_df <span class="op">=</span> label_encode_df.rename(columns<span class="op">=</span>{<span class="st">'Type'</span>: <span class="st">'Payment Type'</span>})</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>onehot_encode_df <span class="op">=</span> onehot_encode_df.rename(columns<span class="op">=</span>{<span class="st">'Type'</span>: <span class="st">'Payment Type'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Filtering and Encoding Dataset for Top Product ID: 365
-✅Data Encoding successful.</code></pre>
+Data Encoding successful. ✅</code></pre>
 </div>
 </div>
 <h4 class="anchored">
 Confirm Encoding of Dataset
 </h4>
-<div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># validate the label encoding</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>label_encode_df.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>Payment Type                       int64
-Days for shipping (real)           int64
-Days for shipment (scheduled)      int64
-Sales per customer               float64
-Delivery Status                    int64
-Late_delivery_risk                 int64
-Customer City                      int64
-Customer Segment                   int64
-Market                             int64
-Sales                            float64
-Shipping Mode                      int64
-Lead Time                          int64
-Shipping Year                      int32
-Shipping Month                     int32
-Shipping Day                       int32
-Shipping Weekday                   int32
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>label_encode_df.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>Payment Type            int64
+Delivery Status         int64
+Late_delivery_risk      int64
+Customer City           int64
+Customer Segment        int64
+Market                  int64
+Sales                 float64
+Shipping Mode           int64
+Lead Time               int64
+Shipping Year           int32
+Shipping Month          int32
+Shipping Day            int32
+Shipping Weekday        int32
 dtype: object</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="50">
+<div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># validate the one-hot encoding</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>onehot_encode_df.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="50">
+<div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>Late_delivery_risk                int64
 Sales                           float64
 Lead Time                         int64
@@ -983,12 +1006,12 @@ Length: 589, dtype: object</code></pre>
 </div>
 </div>
 <h4 class="anchored">
-Finally…Data Preprocessing Completed Successfully!!
+Finally…Data Preprocessing Completed!!
 </h4>
 <!-- insert gif -->
-<p><img src="https://media.giphy.com/media/jIv6pfqKiIvHPYZO6y/giphy.gif?cid=790b76114sdadclwy3mcxlm3o08nf63hxm28relnkbokg8ue&amp;ep=v1_gifs_search&amp;rid=giphy.gif&amp;ct=g" alt="gif" style="width: 100%; height: auto;"></p>
+<p><img src="https://media.giphy.com/media/jIv6pfqKiIvHPYZO6y/giphy.gif?cid=790b76114sdadclwy3mcxlm3o08nf63hxm28relnkbokg8ue&amp;ep=v1_gifs_search&amp;rid=giphy.gif&amp;ct=g" alt="gif" style="width: 70%; height: 90%; display: block; margin: auto; right:20px;"></p>
 <p>
-The dataset is now ready for further analysis and modeling. I will now proceed to conduct exploratory data visualizations to understand the data better.
+The dataset is now ready for further analysis and modeling. we can now proceed to conduct exploratory data visualizations to understand the distribution of the data better.
 </p>
 <h1>
 Exploratory Data Visualizations
@@ -1009,7 +1032,7 @@ Univariate analysis is the simplest form of data analysis where the data being a
 <h4 class="anchored">
 Visualizing the Distribution of the Dataset
 </h4>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="28">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">3</span>, ncols<span class="op">=</span><span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">15</span>))</span>
@@ -1124,27 +1147,27 @@ The distribution of <code>Customer Segment</code> indicates that the majority of
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>NOTE</strong>: Based on the insight from the univariate analysis, The rest of the analysis and forecasting will focus on the top selling <code>Product Card Id</code> (365 ‘Perfect Fitness Perfect Rip Deck’)</p>
+<p><strong>NOTE</strong>: Based on the insight from the univariate analysis, The rest of the analysis and forecasting will focus on the top-selling <code>Product Card Id</code> (365 ‘Perfect Fitness Perfect Rip Deck’)</p>
 </div>
 </div>
 </div>
 <h3 class="anchored">
-Exploratory Time Series Analysis
+Exploratory Time Series Visualisation
 </h3>
 <p>
-To understand the demand patterns of the top-selling product, I created a time series heatmap to visualize the demand patterns of the top-selling product over time.
+To understand the demand patterns of the top-selling product, let’s create a time series heatmap to visualize the demand patterns of the top-selling product over time.
 </p>
 <h4 class="anchored">
 Time Series HeatMap of The Demand
 </h4>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="29">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> calendar</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># extract shipping date (DateOrders) and Sales columns</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract shipping date (DateOrders) and Sales columns</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>df_heatmap <span class="op">=</span> df[[<span class="st">'shipping date (DateOrders)'</span>, <span class="st">'Sales'</span>]]</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'df' is your original dataframe</span></span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
@@ -1153,7 +1176,7 @@ Time Series HeatMap of The Demand
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Set x-axis ticks to represent months and years</span></span>
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>month_labels <span class="op">=</span> [calendar.month_abbr[m.month] <span class="op">+</span> <span class="st">'-'</span> <span class="op">+</span> <span class="bu">str</span>(m.year) <span class="cf">for</span> m <span class="kw">in</span> resampled_df.index]</span>
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the heatmap</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">19</span>, <span class="dv">6</span>))</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
 <span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>sns.heatmap(resampled_df.T, cmap<span class="op">=</span><span class="st">'YlGnBu'</span>, cbar_kws<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">'Sales'</span>})</span>
 <span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>plt.xticks(ticks<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(month_labels)), labels<span class="op">=</span>month_labels, rotation<span class="op">=</span><span class="dv">80</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
 <span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
@@ -1171,15 +1194,15 @@ Time Series HeatMap of The Demand
 Judging from consistency in the shades of the heatmap, we can see that the demand for the top-selling product is fairly stable over time. However, it is interesting to note that the number of sales recorded for the first quarters of <code>2015</code>, <code>2016</code> and <code>2017</code> remained consistent however in 2018 the number of sales recorded in the first quarter dipped significantly. This is an interesting insight that we can explore further.
 </p>
 <p>
-Next, I will use the <code>Prophet</code> library to model the demand for the top-selling product. This will help us understand the cyclical patterns in the demand for the top-selling product
+Next, Let’s use the <code>Prophet</code> library to model the demand for the top-selling product. This will help us understand the cyclical patterns in the demand for the top-selling product
 </p>
 <h1>
 Forecasting Demand with Prophet
 </h1>
 <p>
-Prophet is a forecasting tool developed by Facebook. It is designed for analyzing time series data that display patterns on different time scales such as yearly, weekly, and daily. It also has advanced capabilities for modeling the effects of holidays on a time series and implementing custom seasonalities. see the documentation <a href="#">here</a>
+Prophet is a forecasting tool developed by Facebook. It is designed for analyzing time series data that display patterns on different time scales such as yearly, weekly, and daily. It also has advanced capabilities for modeling the effects of holidays on a time series and implementing custom seasonalities. see the documentation <a href="https://facebook.github.io/prophet/docs/quick_start.html">here</a>
 </p>
-<div class="cell" data-execution_count="12">
+<div class="cell" data-execution_count="30">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import prophet</span></span>
@@ -1201,7 +1224,7 @@ Prophet is a forecasting tool developed by Facebook. It is designed for analyzin
 <span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>holidays_df[<span class="st">'lower_window'</span>] <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>holidays_df[<span class="st">'upper_window'</span>] <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'ds' to datetime</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'ds' to DateTime</span></span>
 <span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>holidays_df[<span class="st">'ds'</span>] <span class="op">=</span> pd.to_datetime(holidays_df[<span class="st">'ds'</span>])</span>
 <span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Prophet instance and provide the holidays DataFrame</span></span>
@@ -1216,8 +1239,8 @@ Prophet is a forecasting tool developed by Facebook. It is designed for analyzin
 <span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>forecast <span class="op">=</span> prophet.predict(future) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
-<pre><code>21:55:33 - cmdstanpy - INFO - Chain [1] start processing
-22:30:21 - cmdstanpy - INFO - Chain [1] done processing</code></pre>
+<pre><code>16:55:01 - cmdstanpy - INFO - Chain [1] start processing
+17:49:07 - cmdstanpy - INFO - Chain [1] done processing</code></pre>
 </div>
 </div>
 <p>
@@ -1235,18 +1258,18 @@ Evaluating the Accuracy of the Time Series Forecast
 <p>
 To determine the accuracy of the prophet model, we will use the <code>cross_validationa()</code> function provided by <code>Prophet</code>
 </p>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> prophet.diagnostics <span class="im">import</span> cross_validation, performance_metrics</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform cross-validation</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>df_cv <span class="op">=</span> cross_validation(model<span class="op">=</span>prophet, initial<span class="op">=</span><span class="st">'730 days'</span>, period<span class="op">=</span><span class="st">'365 days'</span>, horizon<span class="op">=</span><span class="st">'365 days'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"fc6a9923e39a4924be5ec4c560d0896a","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"598128875754492d8c83b787e05142e5","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>22:50:09 - cmdstanpy - INFO - Chain [1] start processing
-22:54:12 - cmdstanpy - INFO - Chain [1] done processing</code></pre>
+<pre><code>18:01:01 - cmdstanpy - INFO - Chain [1] start processing
+18:07:08 - cmdstanpy - INFO - Chain [1] done processing</code></pre>
 </div>
 </div>
 <p>
@@ -1255,7 +1278,7 @@ The <code>cross_validation()</code> function performs cross-validation on the mo
 <p>
 Let’s visualize the performance of the model
 </p>
-<div class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot MAPE</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> prophet.plot <span class="im">import</span> plot_cross_validation_metric</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  set fig size</span></span>
@@ -1274,7 +1297,7 @@ Let’s visualize the performance of the model
 The forecast has lower <code>MAPE</code> (Mean Absolute Percentage Error) values for horizons within the 200-day range however the accuracy drops for horizons beyond 250 days. This suggests that the model is making more errors at periods beyond 250 days.
 </p>
 <p>
-The model will be most useful to stakeholders if it can forecast demand beyond 250 days with a lower percentage of errors. Exposing the model to more historical data may help lower the MAPE significantly. nonetheless, let’s explore if there are opportunities to improve the accuracy by finding the best combinations of hyperparameters for the prophet model. I will use a <a href="#">hyperparameter tuning</a> technique to try to optimize the model’s performance.
+The model will be most useful to stakeholders if it can forecast demand beyond 250 days with a lower percentage of errors. Exposing the model to more historical data may help lower the MAPE significantly. nonetheless, let’s explore if there are opportunities to improve the accuracy by finding the best combinations of hyperparameters for the prophet model. I will use a <a href="https://aws.amazon.com/what-is/hyperparameter-tuning/#:~:text=Hyperparameter%20tuning%20allows%20data%20scientists,the%20model%20as%20a%20hyperparameter.">hyperparameter tuning</a> technique to try to optimize the model’s performance.
 </p>
 <h4 class="anchored">
 Finding the Best Hyperparameter Combination for Lower MAPE
@@ -1304,7 +1327,7 @@ Finding the Best Hyperparameter Combination for Lower MAPE
 The code above uses the <code>ParameterGrid</code> function from the <code>sklearn</code> library to create a grid of hyperparameters. The grid contains different combinations of hyperparameters for the prophet model.
 </p>
 <p>
-The code below then uses the <code>cross_validation()</code> function to evaluate the accuracy of the model for each combination of hyperparameters. The code then selects the combination of hyperparameters that results in the lowest MAPE.
+On the other hand, the code below uses the <code>cross_validation()</code> function to evaluate the accuracy of the model for each combination of hyperparameters. The code then selects the combination of hyperparameters that results in the lowest MAPE.
 </p>
 <div class="cell">
 <details>
@@ -1358,7 +1381,7 @@ The results are in! The best model had the following hyperparameters:
 <p>
 Now let’s rebuild the model with the best hyperparameters and evaluate the model’s performance.
 </p>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tuned_prophet <span class="op">=</span> Prophet(holidays<span class="op">=</span>holidays_df, </span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                        seasonality_mode<span class="op">=</span><span class="st">'additive'</span>, </span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                        seasonality_prior_scale<span class="op">=</span><span class="dv">1</span>, </span>
@@ -1372,31 +1395,31 @@ Now let’s rebuild the model with the best hyperparameters and evaluate the mod
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate forecasts</span></span>
 <span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>new_forecast <span class="op">=</span> tuned_prophet.predict(future)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>23:02:03 - cmdstanpy - INFO - Chain [1] start processing
-23:16:43 - cmdstanpy - INFO - Chain [1] done processing</code></pre>
+<pre><code>19:27:47 - cmdstanpy - INFO - Chain [1] start processing
+19:53:04 - cmdstanpy - INFO - Chain [1] done processing</code></pre>
 </div>
 </div>
 <h5 class="anchored">
 Cross Validation of the Best Model
 </h5>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> prophet.diagnostics <span class="im">import</span> cross_validation, performance_metrics</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform cross-validation</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>tuned_df_cv <span class="op">=</span> cross_validation(model<span class="op">=</span>tuned_prophet, initial<span class="op">=</span><span class="st">'730 days'</span>, period<span class="op">=</span><span class="st">'365 days'</span>, horizon<span class="op">=</span><span class="st">'365 days'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"888f98fa753e4f80be92cd150c534e6e","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"f2bb6f06462c4c61b234d65ca6115383","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>23:44:00 - cmdstanpy - INFO - Chain [1] start processing
-23:51:05 - cmdstanpy - INFO - Chain [1] done processing</code></pre>
+<pre><code>20:34:36 - cmdstanpy - INFO - Chain [1] start processing
+20:40:55 - cmdstanpy - INFO - Chain [1] done processing</code></pre>
 </div>
 </div>
 <p>
 let’s compare the accuracy of the model before and after hyperparameter tuning.
 </p>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="35">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">9</span>))</span>
@@ -1434,9 +1457,9 @@ As indicated earlier, the <code>forecast</code> variable contains the forecasted
 <p>
 The <code>forecast</code> variable is a dataframe that contains the following columns:
 </p>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>forecast.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="36">
 <div>
 
 
@@ -1472,8 +1495,8 @@ The <code>forecast</code> variable is a dataframe that contains the following co
 <td data-quarto-table-cell-role="th">0</td>
 <td>2015-01-03 00:00:00</td>
 <td>189.503452</td>
-<td>59.70575</td>
-<td>380.739390</td>
+<td>66.035120</td>
+<td>371.245609</td>
 <td>189.503452</td>
 <td>189.503452</td>
 <td>0.0</td>
@@ -1496,8 +1519,8 @@ The <code>forecast</code> variable is a dataframe that contains the following co
 <td data-quarto-table-cell-role="th">1</td>
 <td>2015-01-03 03:30:00</td>
 <td>189.646216</td>
-<td>54.96060</td>
-<td>375.707409</td>
+<td>58.800553</td>
+<td>399.717455</td>
 <td>189.646216</td>
 <td>189.646216</td>
 <td>0.0</td>
@@ -1529,7 +1552,7 @@ Before calculating the optimal inventory policy, let’s visualize the forecaste
 <h4 class="anchored">
 Visualizing Forecasted Sales
 </h4>
-<div class="cell" data-execution_count="19">
+<div class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ignore the specific FutureWarning</span></span>
@@ -1537,7 +1560,7 @@ Visualizing Forecasted Sales
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the forecast</span></span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>tuned_prophet.plot_components(new_forecast)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="37">
 <p><img src="index_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
@@ -1548,7 +1571,7 @@ Visualizing Forecasted Sales
 Business Question #1
 </h1>
 <div style="text-align:center;">
-<p><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWJlamcxOTJnM3ZyeDllcXE4MW1lOHpmMndrMnJpMms0YnZ4aWNwcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xT5LMWNOjGqJzUfyve/giphy.gif" alt="gif" style="width: 90%; height: 90%; display: block; margin: auto;"></p>
+<p><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWJlamcxOTJnM3ZyeDllcXE4MW1lOHpmMndrMnJpMms0YnZ4aWNwcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xT5LMWNOjGqJzUfyve/giphy.gif" alt="gif" style="width: 70%; height: 70%; display: block; margin: auto; right:20px;"></p>
 </div>
 <blockquote class="blockquote">
 <em>
@@ -1569,54 +1592,74 @@ The zero variance observed in the product price may account for the relatively s
 <p>
 We can also observe the impact of the Puerto Rican holidays on the forecasted sales.
 </p>
-<h2 class="anchored">
+<h1 class="anchored">
 Finding Optimal Inventory Policy Based on Forecasted Demand
-</h2>
+</h1>
 <p>
 Now that we have forecasted the demand for the top-selling product, we can use the forecasted demand to calculate the optimal inventory policy for the product.
 </p>
 <p>
-Finding the optimal inventory policy will help us determine the <a href="#">Reorder Point</a>, <a href="#">safety stock</a>, and <a href="#">Economic Order Quantity</a>(EOQ) for the product. These markers will help us ensure that we have the right amount of inventory on hand to meet customer demand while minimizing inventory costs.
+Finding the optimal inventory policy will help us determine the <a href="https://cashflowinventory.com/blog/reorder-point">Reorder Point</a>, <a href="https://cashflowinventory.com/blog/reorder-point">safety stock</a>, and <a href="https://cashflowinventory.com/blog/reorder-point">Economic Order Quantity</a>(EOQ) for the product. These markers will help us ensure that we have the right amount of inventory on hand to meet customer demand while minimizing inventory costs.
 </p>
-<h3 class="anchored">
+<h2 class="anchored">
 Re Order Point
-</h3>
+</h2>
 <p>The reorder point is the inventory level at which we should reorder more stock. <code>ROP</code> is calculated as the product of the average sales per day and the lead time (also referred to as <code>Lead Time Demand</code>) plus the <code>Safety stock</code>.</p>
 <p><span class="math display">\[ Reorder\ Point = \text{Lead\ Time\ Demand} + \text{Safety\ Stock} \]</span></p>
 <p>let’s Find the Lead Time Demand</p>
 <p><span class="math display">\[ \text{Lead Time Demand} = \text{Average Sales Per Day} \times \text{Lead Time} \]</span></p>
-<div class="cell" data-execution_count="27">
+<div class="note callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>
+<strong>NOTE:</strong> It is important to state the difference between the downstream and upstream lead time.
+</p>
+<p>
+The <code>Lead Time</code> with regards to the reordering point is the time it takes for a product to be delivered by upstream supply chain manufacturers to the store’s warehouse. It is the time between the placement of an order by the store and the receipt of the product.
+</p>
+<p>
+The current dataset only provides the <code>Days for shipment (scheduled)</code> and the <code>Days for shipping (real)</code> which only helps us determine downstream lead times. The downstream lead time is the time it takes for a product to be delivered to the customer after it has been ordered. This is not the lead time we need to calculate the reorder point.
+</p>
+</div>
+</div>
+</div>
+<p>
+For the purposes of our analysis we will assume an average upstream <code>Lead time</code> of 7 days
+</p>
+<div class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract average forecasted sales per day</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>average_forecasted_sales <span class="op">=</span> new_forecast[<span class="st">'yhat'</span>].mean()</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average Forecasted Sales: </span><span class="sc">{</span>average_forecasted_sales<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract lead time</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>lead_time_data <span class="op">=</span> df.copy()</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>lead_time_data[<span class="st">'lead_time'</span>] <span class="op">=</span> df[<span class="st">'Days for shipping (real)'</span>] <span class="op">-</span> df[<span class="st">'Days for shipment (scheduled)'</span>]  <span class="co"># noqa: F821</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the average lead time</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>average_lead_time <span class="op">=</span> lead_time_data[<span class="st">'lead_time'</span>].mean()</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average Lead Time: </span><span class="sc">{</span>average_lead_time<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>lead_time_demand <span class="op">=</span> average_forecasted_sales <span class="op">*</span> average_lead_time</span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Lead Time Demand: </span><span class="sc">{</span>lead_time_demand<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the average lead time</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>average_lead_time <span class="op">=</span> <span class="dv">7</span>  <span class="co"># 7 days</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average Lead Time: </span><span class="sc">{</span>average_lead_time<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>lead_time_demand <span class="op">=</span> average_forecasted_sales <span class="op">*</span> average_lead_time</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Lead Time Demand: </span><span class="sc">{</span>lead_time_demand<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Average Forecasted Sales: 209.8761684793452
-Average Lead Time: 0.5658074773292562
-Lead Time Demand: 118.74950543882827</code></pre>
+<pre><code>Average Lead Time: 7
+Lead Time Demand: 1469.1331793554164</code></pre>
 </div>
 </div>
 <p>
 One final piece to the Reorder Point puzzle is the <code>Safety Stock</code>. The safety stock is the extra stock that is kept on hand to mitigate the risk of stockouts due to uncertainties in demand and lead time.
 </p>
 <p><span class="math display">\[ \text{Safety Stock} = (\text{Maximum Daily Sales} \times \text{Maximum Lead Time}) - \text{Lead Time Demand}\]</span></p>
-<div class="cell" data-execution_count="28">
+<p>
+Let’s also assume that there have been delays from the manufacturer in the past and the maximum lead time is 10 days. That is Three days later than the average order fulfillment timeline
+</p>
+<div class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find maximum daily forecasted sales</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>max_daily_forecasted_sales <span class="op">=</span> new_forecast[<span class="st">'yhat'</span>].<span class="bu">max</span>()</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Maximum Daily Forecasted Sales: </span><span class="sc">{</span>max_daily_forecasted_sales<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># find maximum lead time</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>max_lead_time <span class="op">=</span> lead_time_data[<span class="st">'lead_time'</span>].<span class="bu">max</span>()</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>max_lead_time <span class="op">=</span> average_lead_time <span class="op">+</span> <span class="dv">3</span>  <span class="co"># 3 days delays in delivery than the average</span></span>
 <span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Maximum Lead Time: </span><span class="sc">{</span>max_lead_time<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate safety stock</span></span>
@@ -1624,26 +1667,26 @@ One final piece to the Reorder Point puzzle is the <code>Safety Stock</code>. Th
 <span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Safety Stock: </span><span class="sc">{</span>safety_stock<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Maximum Daily Forecasted Sales: 375.38211369017046
-Maximum Lead Time: 4
-Safety Stock: 1382.7789493218536</code></pre>
+Maximum Lead Time: 10
+Safety Stock: 2284.687957546288</code></pre>
 </div>
 </div>
 <p>
 Finally, we can calculate the reorder point for the top-selling product.
 </p>
-<h4 class="anchored">
+<h3 class="anchored">
 Putting It All Together
-</h4>
-<div class="cell" data-execution_count="29">
+</h3>
+<div class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate reorder point</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>reorder_point <span class="op">=</span> lead_time_demand <span class="op">+</span> safety_stock</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The Optimal Reorder Point for the Top-selling Product is: </span><span class="sc">{</span>reorder_point<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>The Optimal Reorder Point for the Top-selling Product is: 1501.5284547606818</code></pre>
+<pre><code>The Optimal Reorder Point for the Top-selling Product is: 3753.8211369017044</code></pre>
 </div>
 </div>
 <p>
-As indicated by the result, the reorder point for the top-selling product is <code>1501</code> units, which means that we should reorder more stock when the inventory level reaches <code>1501</code> units. This will help us ensure that we have enough stock on hand to meet customer demand while minimizing inventory costs.
+As indicated by the result, the reorder point for the top-selling product is <code>3753</code> units, which means that we should reorder more stock when the inventory level reaches <code>3753</code> units. This will help us ensure that we have enough stock on hand to meet customer demand while minimizing inventory costs.
 </p>
 <h3 class="anchored">
 Economic Order Quantity (EOQ)
@@ -1675,7 +1718,7 @@ This formula helps in determining the optimal order quantity that minimizes the 
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>NOTE</strong>: We can figure out the demand rate ( D ) based on the existing data. However, the ordering cost ( S ) and holding cost ( H ) are not provided in the dataset. For our analysis, We will assume that the ordering and holding cost is <code>2.5%</code> and <code>3%</code> of the product price respectively.</p>
+<p><strong>NOTE</strong>: We can figure out the demand rate ( D ) based on the existing data. However, the ordering cost ( S ) and holding cost ( H ) are not provided in the dataset. For our analysis, We will assume that the ordering and holding cost is <code>10%</code> and <code>30%</code> of the product price respectively.</p>
 </div>
 </div>
 </div>
@@ -1694,14 +1737,14 @@ Ordering Cost
 <p>
 Ordering costs are the expenses incurred in the process of ordering and receiving inventory. This includes the cost of preparing and processing purchase orders, receiving and inspecting the goods, and storing and managing the inventory.
 </p>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the product price of top selling product(product card id:365)</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>product_price <span class="op">=</span> df[df[<span class="st">'Product Card Id'</span>] <span class="op">==</span> <span class="dv">365</span>][<span class="st">'Product Price'</span>].iloc[<span class="dv">0</span>]</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The Product Price is: </span><span class="sc">{</span>product_price<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate holding cost</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> <span class="fl">0.25</span> <span class="op">*</span> product_price</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> <span class="fl">0.10</span> <span class="op">*</span> product_price</span>
 <span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate ordering cost</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> <span class="fl">0.35</span> <span class="op">*</span> product_price</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> <span class="fl">0.30</span> <span class="op">*</span> product_price</span>
 <span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate forecasted demand rate</span></span>
 <span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> new_forecast[<span class="st">'yhat'</span>].mean()</span>
@@ -1710,26 +1753,32 @@ Ordering costs are the expenses incurred in the process of ordering and receivin
 <span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The Holding Cost is: </span><span class="sc">{</span>H<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The Ordering Cost is: </span><span class="sc">{</span>S<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>The Holding Cost is: 14.99750042
-The Ordering Cost is: 20.996500588</code></pre>
+<pre><code>The Product Price is: 59.99000168
+The Demand Rate is: 209.8761684793452
+The Holding Cost is: 5.999000168
+The Ordering Cost is: 17.997000504</code></pre>
 </div>
 </div>
 <h4 class="anchored">
 Putting It All Together
 </h4>
-<div class="cell">
+<div class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>EOQ <span class="op">=</span> math.sqrt((<span class="dv">2</span> <span class="op">*</span> D <span class="op">*</span> S) <span class="op">/</span> H)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The Economic Order Quantity is: </span><span class="sc">{</span>EOQ<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The Economic Order Quantity is: 35.48601148165388</code></pre>
+</div>
 </div>
 <p>
-Based on the EOQ model, the optimal order quantity for the top-selling product is <code>1,000</code> units. This means that we should order <code>1,000</code> units of the product at a time to minimize the total inventory costs. This will help us ensure that we have the right amount of inventory on hand to meet customer demand while minimizing inventory costs.
+Based on the EOQ model, the optimal order quantity for the top-selling product is <code>35</code> units. This means that we should order <code>35</code> units of the product at a time to minimize the total inventory costs. This will help us ensure that we have the right amount of inventory on hand to meet customer demand while minimizing inventory costs.
 </p>
-<h2 class="anchored">
+<h1 class="anchored">
 Business Question #2
-</h2>
+</h1>
 <div style="text-align:center;">
 <p><img src="https://media.giphy.com/media/l4FBeaUCLhxrXPlpC/giphy.gif" alt="gif" style="width: 90%; height: 90%; display: block; margin: auto;"></p>
 </div>
+<p>See Angry Jack(from spongebob) being angry about his Massive inventory buildup. soon we will see how he could use our new inventory optimisations.</p>
 <blockquote class="blockquote">
 <em>
 <h5 class="anchored">
@@ -1737,17 +1786,25 @@ What is the optimal inventory level for the top selling product?
 </h5>
 </em><p><em></em></p>
 </blockquote>
+<div class="card">
 <p>
 The optimal inventory policy for the top-selling product is as follows:
 </p>
 <ul>
-<li><strong>Reorder Point</strong>: 1501 units</li>
-<li><strong>Economic Order Quantity (EOQ)</strong>: 1000 units</li>
-<li><strong>Safety Stock</strong>: 501 units</li>
+<li><strong>Reorder Point</strong>: 3753 units</li>
+<li><strong>Economic Order Quantity (EOQ)</strong>: 35 units</li>
+<li><strong>Safety Stock</strong>: 2284 units</li>
 </ul>
 <p>
-Making inventory management decisions based on these markers will help the company ensure that they have the right amount of inventory of the top-selling product on hand to meet customer demand while minimizing inventory costs.
+Here’s what Angry Jack should do:
 </p>
+<p>
+When the stock level of the top-selling product hits 3753 units, He needs to place an order of 35 units with his suppliers.
+</p>
+<p>
+Inventory management decisions based on these markers will help the company ensure that there is the right amount of inventory of the top-selling product on hand to meet customer demand while minimizing inventory costs.
+</p>
+</div>
 <h1>
 Bonus: Investigating the Top Predictors of Demand Outcomes
 </h1>
@@ -1764,7 +1821,7 @@ Wait….I have a Hypothesis
 I have a hunch that <code>Product Lead Time</code>, <code>Customer Segment</code> and some <code>Geographic factors</code> will be top predictors of demand outcomes.
 </p>
 <p>
-I will test this hypothesis by conducting a feature importance analysis using the <a href="#">Random Forest</a> algorithm.
+I will test this hypothesis by conducting a feature importance analysis using the <a href="https://www.analyticsvidhya.com/blog/2021/06/understanding-random-forest/">Random Forest</a> algorithm.
 </p>
 <h5 class="anchored">
 <em>Let’s Investigate…..</em>
@@ -1779,20 +1836,20 @@ Correlation Analysis
 Before we proceed with the feature importance analysis, let’s conduct a correlation analysis to identify the top predictors of demand outcomes.
 </p>
 <p>
-we will create the <a href="#">correlation matrix</a> using the <code>corr()</code> method and then use the <code>heatmap()</code> function from the <code>seaborn</code> library to visualize the correlation matrix.
+we will create the <a href="https://builtin.com/data-science/correlation-matrix#:~:text=A%20correlation%20matrix%20is%20a,1%20a%20not%20strong%20relationship.">correlation matrix</a> using the <code>corr()</code> method and then use the <code>heatmap()</code> function from the <code>seaborn</code> library to visualize the correlation matrix.
 </p>
 <p>
 We will use the <code>label_encode_df</code> data frame created during the data preprocessing stage.
 </p>
-<div class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation analysis</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="op">=</span> label_encode_df.corr()</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the correlation matrix</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>sns.heatmap(correlation_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, cbar_kws<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">'Correlation Coefficient'</span>})</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Correlation Matrix of Selected Variables'</span>)</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation analysis</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="op">=</span> label_encode_df.corr()</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the correlation matrix</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>))</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>sns.heatmap(correlation_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, cbar_kws<span class="op">=</span>{<span class="st">'label'</span>: <span class="st">'Correlation Coefficient'</span>})</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Correlation Matrix of Selected Variables'</span>)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-31-output-1.png" class="img-fluid"></p>
 </div>
@@ -1804,7 +1861,7 @@ Observation
 The Heatmap shows there are no strong correlations between the features and the target variable. This suggests that the demand for the top-selling product is not strongly influenced by any single feature.
 </p>
 <h4 class="anchored">
-Feature Importance Analysis Using RandomRandom Forest Regressor Model
+Feature Importance Analysis Using Random Forest Regressor Model
 </h4>
 <p>
 The correlation matrix could not identify the top predictors of demand outcomes. We will use the Random Forest algorithm to identify the top predictors of demand outcomes. The Random Forest algorithm is an ensemble learning method that uses multiple decision trees to make predictions. It is a powerful algorithm for feature importance analysis.
@@ -1815,95 +1872,115 @@ We will train a Random Forest Regressor model on the <code>onehot_encode_df</cod
 <h5 class="anchored">
 Split the Data for Model Training
 </h5>
-<div class="cell" data-execution_count="40">
+<div class="cell" data-execution_count="45">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare features excluding the sale</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>X_features <span class="op">=</span> onehot_encode_df.drop(columns<span class="op">=</span>[<span class="st">'Sales'</span>])</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare target variable</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>y_target <span class="op">=</span> onehot_encode_df[<span class="st">'Sales'</span>]</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co"># split the data into training and testing sets</span></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X_features, y_target, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare features excluding the sale</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>X_features <span class="op">=</span> onehot_encode_df.drop(columns<span class="op">=</span>[<span class="st">'Sales'</span>])</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  Drop Shipping year</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>X_features <span class="op">=</span> X_features.drop(columns<span class="op">=</span>[<span class="st">'Shipping Year'</span>])</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare target variable</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>y_target <span class="op">=</span> onehot_encode_df[<span class="st">'Sales'</span>]</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="co"># split the data into training and testing sets</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X_features, y_target, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <h5 class="anchored">
 Train the Random Forest Regressor Model
 </h5>
-<div class="cell" data-execution_count="48">
+<div class="cell" data-execution_count="46">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create a random forest regressor model</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>rf_model <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">20</span>, random_state<span class="op">=</span><span class="dv">42</span>, min_samples_split<span class="op">=</span><span class="dv">5</span>, min_samples_leaf<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fit rf odel to the training data</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>rf_model.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create a random forest regressor model</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>rf_model <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">150</span>, max_depth<span class="op">=</span><span class="dv">10</span>,  min_samples_split<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fit rf odel to the training data</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>rf_model.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="48">
-<style>#sk-container-id-5 {color: black;}#sk-container-id-5 pre{padding: 0;}#sk-container-id-5 div.sk-toggleable {background-color: white;}#sk-container-id-5 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-5 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-5 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-5 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-5 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-5 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-5 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-5 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-5 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-5 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-5 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-5 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-5 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-5 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-5 div.sk-item {position: relative;z-index: 1;}#sk-container-id-5 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-5 div.sk-item::before, #sk-container-id-5 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-5 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-5 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-5 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-5 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-5 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-5 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-5 div.sk-label-container {text-align: center;}#sk-container-id-5 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-5 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-5" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestRegressor(max_depth=20, min_samples_leaf=2, min_samples_split=5,
-                      random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" checked=""><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestRegressor</label><div class="sk-toggleable__content"><pre>RandomForestRegressor(max_depth=20, min_samples_leaf=2, min_samples_split=5,
-                      random_state=42)</pre></div></div></div></div></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestRegressor(max_depth=10, n_estimators=150)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestRegressor</label><div class="sk-toggleable__content"><pre>RandomForestRegressor(max_depth=10, n_estimators=150)</pre></div></div></div></div></div>
 </div>
 </div>
-<div class="cell" data-execution_count="51">
+<h3 class="anchored">
+Feature Importance Analysis
+</h3>
+<div class="cell" data-execution_count="47">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the hyperparameter grid</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'n_estimators'</span>: [<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">150</span>],</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_depth'</span>: [<span class="va">None</span>, <span class="dv">10</span>, <span class="dv">20</span>],</span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'min_samples_split'</span>: [<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>],</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'min_samples_leaf'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>]</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a RandomForestRegressor model</span></span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>rf_model <span class="op">=</span> RandomForestRegressor(random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create GridSearchCV object</span></span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(estimator<span class="op">=</span>rf_model, param_grid<span class="op">=</span>param_grid, cv<span class="op">=</span><span class="dv">3</span>, scoring<span class="op">=</span><span class="st">'neg_mean_squared_error'</span>)</span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model to the data</span></span>
-<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
-<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the best hyperparameters</span></span>
-<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>best_params <span class="op">=</span> grid_search.best_params_</span>
-<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best Hyperparameters:"</span>, best_params)</span>
-<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the best model</span></span>
-<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a>best_rf_model <span class="op">=</span> grid_search.best_estimator_</span>
-<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model on the test set</span></span>
-<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> best_rf_model.predict(X_test)</span>
-<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> mean_squared_error(y_test, y_pred, squared<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Root Mean Squared Error on Test Set:"</span>, rmse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.cm <span class="im">as</span> cm</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve the feature importances</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>feature_importances <span class="op">=</span> rf_model.feature_importances_</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="co"># get the top 5 feature importances</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>top_5_feature_importances <span class="op">=</span> feature_importances.argsort()[<span class="op">-</span><span class="dv">5</span>:]</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the top 5 features of importance</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> cm.viridis(np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, </span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>                                <span class="bu">len</span>(top_5_feature_importances)))</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>plt.barh(X_train.columns[top_5_feature_importances], </span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>         feature_importances[top_5_feature_importances],</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>          color<span class="op">=</span>colors)</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Feature Importance'</span>)</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Top 5 Feature Importances'</span>)</span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-</div>
-<h5 class="anchored">
-Evaluate the Model Performance
-</h5>
-<div class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate Random Forest Regressor model instance</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score, mean_squared_error</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_model.predict(X_test)</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> mean_squared_error(y_test, y_pred)</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> np.sqrt(mse)</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> r2_score(y_test, y_pred)</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Root Mean Squared Error: </span><span class="sc">{</span>rmse<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'R^2 Score: </span><span class="sc">{</span>r2<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Root Mean Squared Error: 84.89465347297761
-R^2 Score: -0.004057456392433378</code></pre>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-34-output-1.png" class="img-fluid"></p>
 </div>
 </div>
+<h4 class="anchored">
+Discussion of Results
+<p></p>
+<p>
+The feature importance analysis confirms the majority of my hypothesis
+</p>
+<p>
+We can see that Product <code>Lead Time</code>, and some <code>Geographic factors</code> were among the top predictors of demand outcomes
+</p>
+<p>
+<code>Customer Segment</code> however was not among the top predictors of demand outcomes. This brings us to the end of our analysis
+</p>
+<div class="deco-text">
+<pre><code>Congratulations on making it This Far!</code></pre>
+</div>
+<div style="text-align:center;">
+<p><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3V2N25lNWFrNGtwNGo5aTMxaWM2Yno0dXRmOHhtM2FvbnE0eW41eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/XEIa9GtOXdMN4KOaPn/giphy.gif" alt="gif" style="width: 100%; height: 1o0%; display: block; margin: auto;"></p>
+</div>
+</h4><h1>
+Key Takeaways
+</h1>
+<p>
+If you made it this far, I hope you have enjoyed the journey. Here are the key takeaways from this project:
+</p>
+<ul class="task-list">
+<li><input type="checkbox" checked="">We explored how to build a demand forecasting model with Python.</li>
+<li><input type="checkbox" checked="">We used the model for inventory optimization, covering concepts like reorder points, safety stock, and economic order quantity (EOQ).</li>
+<li><input type="checkbox" checked="">We discovered trends, seasonalities and holiday effects on the top-selling product based on the dataset provided.</li>
+<li><input type="checkbox" checked="">We found the optimal inventory policy for the top-selling product.</li>
+</ul>
+<h4 class="anchored">
+How does this method offer enhanced scalability compared to conventional demand forecasting techniques?
+</h4>
+<ol>
+<li>
+The existing data processing steps can easily be adapted to accommodate larger product categories.
+</li><li>
+Improved speed and accuracy.
+</li>
+<li>
+Minimized guesswork and enhanced reproducibility for validating forecasts.
+</li>
+</ol>
+<p>
+Feel free to share your thoughts and feedback on my approach. I am open to learning and improving my skills.
+</p>
 <div class="column-page">
 <h1>
 Up Next:
@@ -2187,7 +2264,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="modal.js"></script>
 </div> <!-- /content -->
 
 

@@ -1,4 +1,4 @@
-p {
+p, ul, ol, blockquote {
     text-align: justify;
     font-size: 18px;
     line-height: 28px;
@@ -6,6 +6,25 @@ p {
     font-weight: 400;
     margin-bottom: 16px;
     font-family: 'Montserrat', sans-serif;
+}
+
+
+/* hero section */
+.herosection {
+  background-image: url('hero/5.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  padding: 50px;
+  color: rgb(5, 120, 251);
+  font-family: 'Georgia';
+  width: 100%;
+  text-align: center;
+}
+
+.herosection h1 {
+  font-weight: bold;
+  border-left: none;
 }
 
 .grid-container {
@@ -42,13 +61,15 @@ h1 {
   margin-bottom: 40px;
   padding-bottom: 10px;
   line-height: 1.6;
+  font-family:'Raleway', sans-serif;
+  font-weight: 550;
 }
 body {color: #21313c;
   background-color: #fff;
   font-family: 'Montserrat' sans-serif;}
 
-  h2, h3, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif;
+  h2, h3, h4, h5 {
+    font-family: 'Raleway', sans-serif;
     font-weight: normal;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -148,6 +169,14 @@ body {color: #21313c;
 
 #myBtn:hover {
   background-color: rgb(4, 80, 231);
+}
+
+.deco-text {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  font-family: 'Lucida Calligraphy' !important;
+  padding: 50px 0 !important;
 }
 
 .card {
