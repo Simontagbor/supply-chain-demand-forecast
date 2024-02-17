@@ -11,19 +11,19 @@ p, ul, ol, blockquote {
 
 /* hero section */
 .herosection {
-  background-image: url('hero/5.jpg');
+  background-image: url('../hero/5.jpg');
   background-size: cover;
   background-position: center;
   height: 100%;
   padding: 50px;
-  color: rgb(5, 120, 251);
+  color: rgb(255, 255, 255);
   font-family: 'Georgia';
   width: 100%;
   text-align: center;
 }
 
 .herosection h1 {
-  font-weight: bold;
+  font-weight: 900;
   border-left: none;
 }
 
